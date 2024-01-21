@@ -7,7 +7,7 @@ export class AppController {
 
   @Get('/weather/:city/:country')
   getWeather(@Param('city') city: string, @Param('country') country: string) {
-    return this.appService.getWeather(city, country);
+    return this.appService.getWeather(city, country.toLowerCase());
   }
 
   @Get('/history')

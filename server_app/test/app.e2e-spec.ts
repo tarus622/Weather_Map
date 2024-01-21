@@ -2,26 +2,52 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
 import { AppModule } from './../src/app.module';
-import { Location } from '../src/schemas/location.schema';
-import { Model } from 'mongoose';
+import { AppService } from '../src/app.service';
 
 describe('AppController (e2e)', () => {
   let app: INestApplication;
+  const appService = {
+    getWeather: () => {
+      return {
+        test: 'test',
+      };
+    },
+    getWeatherHistory: () => ['test'],
+  };
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
-      providers: [Model<Location>],
-    }).compile();
+    })
+      .overrideProvider(AppService)
+      .useValue(appService)
+      .compile();
 
     app = moduleFixture.createNestApplication();
     await app.init();
   });
 
-  it('/ (GET)', () => {
+  it('/weather/:city/:country (GET)', () => {
+    // Arrange
+    const city = 'London';
+    const country = 'uk';
+    const expectedResult = {
+      test: 'test',
+    };
+
     return request(app.getHttpServer())
-      .get('/')
+      .get(`/weather/${city}/${country}`)
       .expect(200)
-      .expect('Hello World!');
+      .expect(expectedResult);
+  });
+
+  it('/history (GET)', () => {
+    // Arrange
+    const expectedResult = ['test'];
+
+    return request(app.getHttpServer())
+      .get(`/history`)
+      .expect(200)
+      .expect(expectedResult);
   });
 });
