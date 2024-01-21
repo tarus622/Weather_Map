@@ -5,6 +5,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Location, LocationSchema } from './schemas/location.schema';
 import { LocationRepository } from './repositories/location.repository';
+import { RequestHistoryHelper } from './helpers/request-history';
 
 const options = {
   path: '.env',
@@ -20,6 +21,6 @@ dotenv.config(options);
     ]),
   ],
   controllers: [AppController],
-  providers: [AppService, LocationRepository],
+  providers: [AppService, LocationRepository, RequestHistoryHelper],
 })
 export class AppModule {}

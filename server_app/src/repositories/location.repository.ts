@@ -3,11 +3,13 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Location } from '../schemas/location.schema';
 import { Model } from 'mongoose';
 import { CreateLocationDto } from '../dtos/create-location.dto';
+import { RequestHistoryHelper } from '../helpers/request-history';
 
 @Injectable()
 export class LocationRepository {
   constructor(
     @InjectModel(Location.name) private locationModel: Model<Location>,
+    private requestHistoryHelper: RequestHistoryHelper,
   ) {}
 
   async createLocationWeatherData(
@@ -24,6 +26,17 @@ export class LocationRepository {
         'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+    }
+  }
+
+  async getRequestsHistory() {
+    try {
+      const requestsHistory =
+        await this.requestHistoryHelper.findRequestHistory();
+
+      return requestsHistory;
+    } catch (error) {
+      throw error;
     }
   }
 }
