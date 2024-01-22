@@ -4,7 +4,9 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Location, LocationSchema } from './schemas/location.schema';
+import { Webhook, WebhookSchema } from './schemas/webhooks.schema';
 import { LocationRepository } from './repositories/location.repository';
+import { WebhookRepository } from './repositories/webhook.repository';
 import { RequestHistoryHelper } from './helpers/request-history';
 
 const options = {
@@ -18,9 +20,15 @@ dotenv.config(options);
     MongooseModule.forRoot(process.env.DB_CONNECTION_STRING),
     MongooseModule.forFeature([
       { name: Location.name, schema: LocationSchema },
+      { name: Webhook.name, schema: WebhookSchema },
     ]),
   ],
   controllers: [AppController],
-  providers: [AppService, LocationRepository, RequestHistoryHelper],
+  providers: [
+    AppService,
+    LocationRepository,
+    WebhookRepository,
+    RequestHistoryHelper,
+  ],
 })
 export class AppModule {}

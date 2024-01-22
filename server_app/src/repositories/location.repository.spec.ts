@@ -6,7 +6,7 @@ import { getModelToken } from '@nestjs/mongoose';
 import { CreateLocationDto } from '../dtos/create-location.dto';
 import * as mongoose from 'mongoose';
 
-describe('UsersController', () => {
+describe('LocationRepository', () => {
   let locationRepository: LocationRepository;
   let requestHistoryHelper: RequestHistoryHelper;
   let locationModel: mongoose.Model<LocationDocument>;

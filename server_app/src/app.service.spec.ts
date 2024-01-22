@@ -1,7 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AppService } from './app.service';
 import { LocationRepository } from './repositories/location.repository';
+import { WebhookRepository } from './repositories/webhook.repository';
 import { Location } from './schemas/location.schema';
+import { Webhook } from './schemas/webhooks.schema';
 import { RequestHistoryHelper } from './helpers/request-history';
 import { fetchData } from './helpers/api';
 import { getModelToken } from '@nestjs/mongoose';
@@ -12,29 +14,40 @@ jest.mock('./helpers/api');
 describe('AppService', () => {
   let appService: AppService;
   let locationRepository: LocationRepository;
+  let webhookRepository: WebhookRepository;
 
   it('Can create an instance of AppService', async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AppService,
         LocationRepository,
+        WebhookRepository,
         RequestHistoryHelper,
         { provide: getModelToken(Location.name), useValue: Model },
+        { provide: getModelToken(Webhook.name), useValue: Model },
       ],
     }).compile();
 
     appService = module.get<AppService>(AppService);
     locationRepository = module.get<LocationRepository>(LocationRepository);
+    webhookRepository = module.get<WebhookRepository>(WebhookRepository);
 
     // Mock locationRepository functions
     locationRepository.createLocationWeatherData = jest.fn();
     locationRepository.getRequestsHistory = jest.fn();
+
+    // Mock webhookRepository functions
+    webhookRepository.createWebhook = jest.fn();
+    webhookRepository.getWebhooks = jest.fn();
 
     expect(appService).toBeDefined();
   });
   describe('getWeather', () => {
     it('Must return json with correct data when fetchData is called inside getWeather function', async () => {
       // Arrange
+      webhookRepository.getWebhooks = jest
+        .fn()
+        .mockImplementation(() => [{}, {}]);
       const city = 'London';
       const country = 'uk';
       const expectedResult = {
