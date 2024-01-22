@@ -1,16 +1,16 @@
-import { IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 import { WeatherData } from '../interfaces/weather-data.interface';
 
 export class CreateLocationDto {
-  @IsNotEmpty()
+  @ApiProperty({ required: true })
   city: string;
 
-  @IsNotEmpty()
+  @ApiProperty({ required: true })
   country: string;
 
-  @IsNotEmpty()
+  @ApiProperty({ required: true })
   requestDate: string;
 
-  @IsNotEmpty()
+  @ApiProperty({ required: true })
   weatherData: WeatherData;
 }
