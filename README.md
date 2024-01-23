@@ -6,7 +6,7 @@ API para requisição de dados meteorológicos de cidades no mundo todo, utiliza
 
 ## Configuração de variáveis ambiente do docker-compose.yml
 
-Configure as variáveis ambiente utilizadas na API e no banco de dados MongoDB criando um arquivo compose-yml na raiz do projeto com as seguintes especificações:
+Configure as variáveis ambiente utilizadas na API e no banco de dados MongoDB no arquivo compose-yml na raiz do projeto com as seguintes especificações:
 ```
 version: "3.8"
 services:
