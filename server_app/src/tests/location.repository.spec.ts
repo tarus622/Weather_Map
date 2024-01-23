@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { LocationRepository } from './location.repository';
+import { LocationRepository } from '../repositories/location.repository';
 import { Location, LocationDocument } from '../schemas/location.schema';
 import { RequestHistoryHelper } from '../helpers/request-history';
 import { getModelToken } from '@nestjs/mongoose';

@@ -13,7 +13,6 @@ export class AppService {
   ) {}
   async getWeather(city: string, country: string) {
     try {
-      // Fetch data from the API
       const response = await fetchData(
         `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${process.env.API_KEY}`,
       );
@@ -32,10 +31,8 @@ export class AppService {
         });
       }
 
-      // Return the response
       return response;
     } catch (error) {
-      // If an error occurs during data fetching, rethrow the same error
       throw error;
     }
   }

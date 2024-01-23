@@ -1,15 +1,15 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppService } from './app.service';
-import { LocationRepository } from './repositories/location.repository';
-import { WebhookRepository } from './repositories/webhook.repository';
-import { Location } from './schemas/location.schema';
-import { Webhook } from './schemas/webhooks.schema';
-import { RequestHistoryHelper } from './helpers/request-history';
-import { fetchData } from './helpers/api';
+import { AppService } from '../app.service';
+import { LocationRepository } from '../repositories/location.repository';
+import { WebhookRepository } from '../repositories/webhook.repository';
+import { Location } from '../schemas/location.schema';
+import { Webhook } from '../schemas/webhooks.schema';
+import { RequestHistoryHelper } from '../helpers/request-history';
+import { fetchData } from '../helpers/api';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 
-jest.mock('./helpers/api');
+jest.mock('../helpers/api');
 
 describe('AppService', () => {
   let appService: AppService;

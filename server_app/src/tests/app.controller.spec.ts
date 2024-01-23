@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { LocationRepository } from './repositories/location.repository';
-import { WebhookRepository } from './repositories/webhook.repository';
-import { RequestHistoryHelper } from './helpers/request-history';
-import { Location } from './schemas/location.schema';
-import { Webhook } from './schemas/webhooks.schema';
+import { AppController } from '../app.controller';
+import { AppService } from '../app.service';
+import { LocationRepository } from '../repositories/location.repository';
+import { WebhookRepository } from '../repositories/webhook.repository';
+import { RequestHistoryHelper } from '../helpers/request-history';
+import { Location } from '../schemas/location.schema';
+import { Webhook } from '../schemas/webhooks.schema';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 

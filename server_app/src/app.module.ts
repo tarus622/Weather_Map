@@ -1,4 +1,3 @@
-// import * as dotenv from 'dotenv';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -8,12 +7,6 @@ import { Webhook, WebhookSchema } from './schemas/webhooks.schema';
 import { LocationRepository } from './repositories/location.repository';
 import { WebhookRepository } from './repositories/webhook.repository';
 import { RequestHistoryHelper } from './helpers/request-history';
-
-// const options = {
-//   path: '.env',
-// };
-
-// dotenv.config(options);
 
 @Module({
   imports: [

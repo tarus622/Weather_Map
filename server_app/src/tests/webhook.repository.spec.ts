@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { WebhookRepository } from './webhook.repository';
+import { WebhookRepository } from '../repositories/webhook.repository';
 import { Webhook, WebhookDocument } from '../schemas/webhooks.schema';
 import { getModelToken } from '@nestjs/mongoose';
 import { CreateWebhookDto } from '../dtos/create-webhook.dto';
