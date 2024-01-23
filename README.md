@@ -34,6 +34,25 @@ services:
 
 ## API Endpoints
 
+```GET``` /weather/:city/:country 
+- Faz uma requisição para a API do OpenWeatherMap retornando as condições climáticas atuais da cidade pesquisada.
+- Adiciona a requisição em um documento do banco de dados MongoDB que guarda o histórico de requisições.
+- Caso haja webhooks para a localidade da requisição, envia uma requisição POST para a URL cadastrada.
+
+ ```GET``` /history
+ - Recupera o histórico de requisições realizadas que está armazenado no banco de dados MongoDB.
+
+```POST``` /webhook
+- Cadastra um novo webhook com o seguinte formato:
+```json
+{
+    "city": "London",
+    "country": "GB",
+    "webhookURL": "https://example.com/webhook-endpoint"
+}
+
+```
+
 Para ver a documentação da API, acesse a rota raiz da API em {HOSTNAME}:{PORT}.
 
 
