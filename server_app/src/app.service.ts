@@ -18,15 +18,12 @@ export class AppService {
         `https://api.openweathermap.org/data/2.5/weather?q=${city},${country}&APPID=${process.env.API_KEY}`,
       );
 
-      const webhooks = await this.webhookRepository.getWebhooks(city, country);
+      const webhooks = await this.getWebhooks(city, country);
       if (webhooks.length > 0) {
         await sendPostRequestsToWebhooks(webhooks);
       }
 
       if (response) {
-        // If successful, store data in the repository
-        this.getWebhooks(city, country);
-
         this.locationRepository.createLocationWeatherData({
           city,
           country,
