@@ -9,7 +9,7 @@ services:
 
   node-api:
     build:
-      context: ./server_app/
+      context: ./weather_app/
       dockerfile: Dockerfile
     container_name: node-api
     restart: always
