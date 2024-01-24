@@ -84,12 +84,6 @@ $ npm start
 - Adiciona a requisição em um documento do banco de dados MongoDB que guarda o histórico de requisições.
 - Caso haja webhooks para a localidade da requisição, envia uma requisição POST para a URL cadastrada.
 
-Param   | Type | Size | Required
---------- | :------: | -------: | :------:
-city | string |  | true
-country | string | 2 | true
----
-
 `GET` /history
 
 - Recupera o histórico de requisições realizadas que está armazenado no banco de dados MongoDB.
@@ -105,12 +99,6 @@ country | string | 2 | true
   "webhookURL": "https://example.com/webhook-endpoint"
 }
 ```
-# Request body:
-Field | Type | Required
--------- | :------: | -------:
-city | string | true
-country | string | 2 | true
-webhookURL | string | true
 
 Para ver mais detalhes sobre a documentação da API no Swagger, acesse a rota raiz da aplicação em {HOSTNAME}:{PORT}.
 
