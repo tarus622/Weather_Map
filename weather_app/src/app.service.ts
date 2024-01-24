@@ -23,12 +23,6 @@ export class AppService {
 
       this.logger.log(`Weather request for ${city}, ${country}`);
 
-      if (webhooks.length > 0) {
-        this.logger.log(`Sending post requests to ${webhooks.length} webhooks`);
-
-        await sendPostRequestsToWebhooks(webhooks);
-      }
-
       if (response) {
         this.locationRepository.createLocationWeatherData({
           city,
@@ -36,6 +30,14 @@ export class AppService {
           requestDate: new Date().toISOString(),
           weatherData: response,
         });
+
+        if (webhooks.length > 0) {
+          this.logger.log(
+            `Sending post requests to ${webhooks.length} webhooks`,
+          );
+
+          await sendPostRequestsToWebhooks(webhooks);
+        }
 
         this.logger.log(
           `Location weather data created for ${city}, ${country}`,

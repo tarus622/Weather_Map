@@ -1,6 +1,7 @@
 import { Controller, Body, Get, Post, Param, Logger } from '@nestjs/common';
 import { AppService } from './app.service';
 import { CreateWebhookDto } from './dtos/create-webhook.dto';
+import { GetWeatherDto } from './dtos/get-weather.dto';
 
 @Controller()
 export class AppController {
@@ -9,27 +10,24 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/weather/:city/:country')
-  async getWeather(
-    @Param('city') city: string,
-    @Param('country') country: string,
-  ) {
+  async getWeather(@Param() params: GetWeatherDto) {
     const formattedCity =
-      city.charAt(0).toUpperCase() + city.slice(1).toLowerCase();
+      params.city.charAt(0).toUpperCase() + params.city.slice(1).toLowerCase();
 
     try {
       const result = await this.appService.getWeather(
         formattedCity,
-        country.toLowerCase(),
+        params.country.toLowerCase(),
       );
 
       this.logger.log(
-        `Successfully retrieved weather for ${formattedCity}, ${country}`,
+        `Successfully retrieved weather for ${formattedCity}, ${params.country}`,
       );
 
       return result;
     } catch (error) {
       this.logger.error(
-        `Error in getWeather for ${formattedCity}, ${country}: ${error.message}`,
+        `Error in getWeather for ${formattedCity}, ${params.country}: ${error.message}`,
       );
       throw error;
     }

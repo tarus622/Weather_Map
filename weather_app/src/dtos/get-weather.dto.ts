@@ -1,7 +1,7 @@
-import { IsNotEmpty, IsString, Length } from 'class-validator';
+import { IsString, IsNotEmpty, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
-export class CreateWebhookDto {
+export class GetWeatherDto {
   @ApiProperty({ required: true })
   @IsString()
   @IsNotEmpty()
@@ -12,9 +12,4 @@ export class CreateWebhookDto {
   @IsNotEmpty()
   @Length(2, 2)
   country: string;
-
-  @ApiProperty({ required: true })
-  @IsString()
-  @IsNotEmpty()
-  webhookURL: string;
 }

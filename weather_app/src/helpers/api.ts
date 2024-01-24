@@ -47,6 +47,5 @@ export async function sendPostRequestsToWebhooks(
     logger.log('All POST requests to webhooks processed successfully');
   } catch (error) {
     logger.error('Error processing POST requests to webhooks:', error);
-    throw error;
   }
 }

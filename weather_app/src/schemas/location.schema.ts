@@ -9,7 +9,7 @@ export class Location {
   @Prop({ required: true })
   city: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true, length: 2 })
   country: string;
 
   @Prop({ required: true })
