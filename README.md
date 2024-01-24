@@ -40,7 +40,7 @@ services:
       - db
 ```
 
-Na pasta [weather_app/](weather_app/) e após configurar as variáveis ambiente no arquivo docker-compose.yml, execute o comando a seguir:
+Na pasta raíz [Weather_Map/](Weather_Map/) e após configurar as variáveis ambiente no arquivo docker-compose.yml, execute o comando a seguir:
 
 ```bash
 $ docker-compose up
