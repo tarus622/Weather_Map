@@ -4,6 +4,10 @@
 
 API para requisição de dados meteorológicos de cidades no mundo todo, utilizando o [OpenWeatherMap](https://openweathermap.org/). Também possibilita a criação de webhooks e a consulta do hisórico de requisições salvas em um banco de dados MongoDB.
 
+## Atalhos
+* [weather_app/](weather_app/) - pasta raiz da aplicação NestJS
+* [tests/](tests/) - pasta com os arquivos de testes unitários
+
 ## Executando a aplicação com docker-compose
 
 Configure as variáveis ambiente utilizadas na API e no banco de dados MongoDB no arquivo docker-compose.yml na raiz do projeto com as seguintes especificações:
@@ -36,7 +40,7 @@ services:
       - db
 ```
 
-Na raiz do projeto e após configurar as variáveis ambiente no arquivo docker-compose.yml, execute o comando a seguir:
+Na pasta [weather_app/](weather_app/) e após configurar as variáveis ambiente no arquivo docker-compose.yml, execute o comando a seguir:
 
 ```bash
 $ docker-compose up
@@ -80,6 +84,12 @@ $ npm start
 - Adiciona a requisição em um documento do banco de dados MongoDB que guarda o histórico de requisições.
 - Caso haja webhooks para a localidade da requisição, envia uma requisição POST para a URL cadastrada.
 
+Param   | Type | Size | Required
+--------- | :------: | -------: | :------:
+city | string |  | true
+country | string | 2 | true
+---
+
 `GET` /history
 
 - Recupera o histórico de requisições realizadas que está armazenado no banco de dados MongoDB.
@@ -95,6 +105,12 @@ $ npm start
   "webhookURL": "https://example.com/webhook-endpoint"
 }
 ```
+# Request body:
+Field | Type | Required
+-------- | :------: | -------:
+city | string | true
+country | string | 2 | true
+webhookURL | string | true
 
 Para ver mais detalhes sobre a documentação da API no Swagger, acesse a rota raiz da aplicação em {HOSTNAME}:{PORT}.
 
