@@ -51,16 +51,20 @@ $ npm install
 ```
 
 2- Crie um arquivo .env e configure as seguintes variáveis ambiente:
+```
 API_KEY=
 DB_CONNECTION_STRING=
+```
 
 3- Vá até a pasta [src/](src/) e procure o arquivo "app.module.ts"
 
 4- Descomente as seguintes linhas:
+```
 // import \* as dotenv from 'dotenv';
 // const config = { path: '.env' };
 
 // dotenv.config(config);
+```
 
 5- Em seguida, execute o seguinte comando:
 
