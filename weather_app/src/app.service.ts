@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { fetchData } from './helpers/api';
 import { sendPostRequestsToWebhooks } from './helpers/api';
 import { LocationRepository } from './repositories/location.repository';
@@ -7,6 +7,8 @@ import { CreateWebhookDto } from './dtos/create-webhook.dto';
 
 @Injectable()
 export class AppService {
+  private readonly logger = new Logger(AppService.name);
+
   constructor(
     private locationRepository: LocationRepository,
     private webhookRepository: WebhookRepository,
@@ -18,7 +20,12 @@ export class AppService {
       );
 
       const webhooks = await this.getWebhooks(city, country);
+
+      this.logger.log(`Weather request for ${city}, ${country}`);
+
       if (webhooks.length > 0) {
+        this.logger.log(`Sending post requests to ${webhooks.length} webhooks`);
+
         await sendPostRequestsToWebhooks(webhooks);
       }
 
@@ -29,10 +36,18 @@ export class AppService {
           requestDate: new Date().toISOString(),
           weatherData: response,
         });
+
+        this.logger.log(
+          `Location weather data created for ${city}, ${country}`,
+        );
       }
 
       return response;
     } catch (error) {
+      this.logger.error(
+        `Error in getWeather for ${city}, ${country}: ${error.message}`,
+      );
+
       throw error;
     }
   }
@@ -40,6 +55,9 @@ export class AppService {
   getWeatherHistory() {
     try {
       const response = this.locationRepository.getRequestsHistory();
+
+      this.logger.log('Webhook created');
+
       return response;
     } catch (error) {
       throw error;
@@ -49,8 +67,13 @@ export class AppService {
   createWebhook(createWebhookDto: CreateWebhookDto) {
     try {
       const response = this.webhookRepository.createWebhook(createWebhookDto);
+
+      this.logger.log('Getting weather history');
+
       return response;
     } catch (error) {
+      this.logger.error(`Error in createWebhook: ${error.message}`);
+
       throw error;
     }
   }
@@ -58,8 +81,15 @@ export class AppService {
   getWebhooks(city: string, country: string) {
     try {
       const response = this.webhookRepository.getWebhooks(city, country);
+
+      this.logger.log(`Getting webhooks for ${city}, ${country}`);
+
       return response;
     } catch (error) {
+      this.logger.error(
+        `Error in getWebhooks for ${city}, ${country}: ${error.message}`,
+      );
+
       throw error;
     }
   }
