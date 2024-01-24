@@ -6,7 +6,7 @@ API para requisição de dados meteorológicos de cidades no mundo todo, utiliza
 
 ## Atalhos
 * [weather_app/](weather_app/) - pasta raiz da aplicação NestJS
-* [tests/](tests/) - pasta com os arquivos de testes unitários
+* [weather_app/src/tests/](weather_app/src/tests/) - pasta com os arquivos de testes unitários
 
 ## Executando a aplicação com docker-compose
 
