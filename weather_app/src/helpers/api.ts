@@ -1,10 +1,15 @@
-import { NotFoundException } from '@nestjs/common';
+import { NotFoundException, Logger } from '@nestjs/common';
 import { Webhook } from '../schemas/webhooks.schema';
+
+const logger = new Logger('ApiHelpers');
 
 export async function fetchData(url: string) {
   try {
     const response = await fetch(url);
     if (!response.ok) {
+      logger.error(
+        `Weather API request failed: city not found. Status: ${response.status}`,
+      );
       throw new NotFoundException(
         `Weather API request failed: city not found. Status: ${response.status}`,
       );
@@ -12,6 +17,7 @@ export async function fetchData(url: string) {
     const data = await response.json();
     return data;
   } catch (error) {
+    logger.error(`Error in fetchData: ${error.message}`);
     throw error;
   }
 }
@@ -20,7 +26,6 @@ export async function sendPostRequestsToWebhooks(
   webhooks: Webhook[],
 ): Promise<void> {
   try {
-    // Use Promise.all to wait for all requests to complete
     await Promise.all(
       webhooks.map(async (webhook) => {
         await fetch(webhook.webhookURL, {
@@ -30,12 +35,18 @@ export async function sendPostRequestsToWebhooks(
           },
           body: JSON.stringify(webhook),
         });
+
+        logger.log(
+          `POST request to webhook processed successfully: ${JSON.stringify(
+            webhook,
+          )}`,
+        );
       }),
     );
 
-    console.log('All POST requests to webhooks processed successfully');
+    logger.log('All POST requests to webhooks processed successfully');
   } catch (error) {
-    console.error('Error processing POST requests to webhooks:', error);
+    logger.error('Error processing POST requests to webhooks:', error);
     throw error;
   }
 }

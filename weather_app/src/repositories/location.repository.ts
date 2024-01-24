@@ -1,4 +1,4 @@
-import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Location } from '../schemas/location.schema';
 import { Model } from 'mongoose';
@@ -7,6 +7,8 @@ import { RequestHistoryHelper } from '../helpers/request-history';
 
 @Injectable()
 export class LocationRepository {
+  private readonly logger = new Logger(LocationRepository.name);
+
   constructor(
     @InjectModel(Location.name) private locationModel: Model<Location>,
     private requestHistoryHelper: RequestHistoryHelper,
@@ -20,8 +22,16 @@ export class LocationRepository {
         createLocationDto,
       );
 
+      this.logger.log(
+        `Location weather data created: ${JSON.stringify(
+          createdLocationWeather,
+        )}`,
+      );
+
       return createdLocationWeather;
     } catch (error) {
+      this.logger.error(`Error in createLocationWeatherData: ${error.message}`);
+
       throw new HttpException(
         'Internal Server Error',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -34,8 +44,15 @@ export class LocationRepository {
       const requestsHistory =
         await this.requestHistoryHelper.findRequestHistory();
 
+      this.logger.log(
+        `Successfully retrieved request history: ${JSON.stringify(
+          requestsHistory,
+        )}`,
+      );
+
       return requestsHistory;
     } catch (error) {
+      this.logger.error(`Error in getRequestsHistory: ${error.message}`);
       throw error;
     }
   }

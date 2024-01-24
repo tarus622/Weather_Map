@@ -42,7 +42,7 @@ describe('AppController', () => {
   });
 
   describe('getWeather', () => {
-    it('Must return json with correct data when fetchData is called inside getWeather function', () => {
+    it('Must return json with correct data when fetchData is called inside getWeather function', async () => {
       // Arrange
       const city = 'London';
       const country = 'uk';
@@ -58,7 +58,9 @@ describe('AppController', () => {
       (appService.getWeather as jest.Mock).mockReturnValue(expectedResult);
 
       // Assert
-      expect(appController.getWeather(city, country)).toEqual(expectedResult);
+      expect(await appController.getWeather(city, country)).toEqual(
+        expectedResult,
+      );
     });
 
     it('Must throw an error when appService.getWeather throws it', async () => {
@@ -85,7 +87,7 @@ describe('AppController', () => {
       expect(appService.getWeatherHistory).toBeCalled();
     });
 
-    it('Should return the list of requests history', () => {
+    it('Should return the list of requests history', async () => {
       // Assert
       const expectedResult = [
         {
@@ -106,7 +108,7 @@ describe('AppController', () => {
       );
 
       // Act
-      const data = appController.getWeatherHistory();
+      const data = await appController.getWeatherHistory();
 
       expect(data).toEqual(expectedResult);
     });
