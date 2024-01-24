@@ -8,6 +8,7 @@ import { Location } from '../schemas/location.schema';
 import { Webhook } from '../schemas/webhooks.schema';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { GetWeatherDto } from '../dtos/get-weather.dto';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -44,8 +45,10 @@ describe('AppController', () => {
   describe('getWeather', () => {
     it('Must return json with correct data when fetchData is called inside getWeather function', async () => {
       // Arrange
-      const city = 'London';
-      const country = 'uk';
+      const getWeatherDto: GetWeatherDto = {
+        city: 'London',
+        country: 'uk',
+      };
       const expectedResult = {
         coord: {
           lon: 31.2497,
@@ -58,7 +61,7 @@ describe('AppController', () => {
       (appService.getWeather as jest.Mock).mockReturnValue(expectedResult);
 
       // Assert
-      expect(await appController.getWeather(city, country)).toEqual(
+      expect(await appController.getWeather(getWeatherDto)).toEqual(
         expectedResult,
       );
     });

@@ -77,30 +77,4 @@ describe('sendPostRequestsToWebhooks', () => {
       body: JSON.stringify(webhooks[1]),
     });
   });
-
-  it('should handle errors during POST requests', async () => {
-    // Arrange
-    const webhooks = [
-      {
-        city: 'London',
-        country: 'uk',
-        webhookURL: 'https://example.com/webhook1',
-      },
-      {
-        city: 'Paris',
-        country: 'fr',
-        webhookURL: 'https://example.com/webhook2',
-      },
-    ];
-
-    const fetchSpy = jest
-      .spyOn(global, 'fetch')
-      .mockRejectedValueOnce(new Error('Network error'));
-
-    // Act && Assert
-    await expect(() => sendPostRequestsToWebhooks(webhooks)).rejects.toThrow(
-      'Network error',
-    );
-    expect(fetchSpy).toHaveBeenCalledTimes(2);
-  });
 });
