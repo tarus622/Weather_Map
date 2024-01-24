@@ -60,7 +60,7 @@ API_KEY=
 DB_CONNECTION_STRING=
 ```
 
-3- Vá até o arquivo [app.module.ts](weather_app/src/app.module.ts) e procure o arquivo "app.module.ts"
+3- Vá até o arquivo [app.module.ts](weather_app/src/app.module.ts)
 
 4- Descomente as seguintes linhas:
 ```
