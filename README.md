@@ -104,7 +104,7 @@ Para ver mais detalhes sobre a documentação da API no Swagger, acesse a rota r
 
 ## Test
 
-Para executar testes unitários e teste E2E, vá até a pasta server_app e execute os comandos a seguir:
+Para executar testes unitários e teste E2E, vá até a pasta [weather_app/](weather_app/) e execute os comandos a seguir:
 
 ```bash
 # unit tests
