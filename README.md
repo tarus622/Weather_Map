@@ -4,7 +4,7 @@
 
 API para requisição de dados meteorológicos de cidades no mundo todo, utilizando o [OpenWeatherMap](https://openweathermap.org/). Também possibilita a criação de webhooks e a consulta do hisórico de requisições salvas em um banco de dados MongoDB.
 
-## Configuração de variáveis ambiente do docker-compose.yml
+## Executando a aplicação com docker-compose
 
 Configure as variáveis ambiente utilizadas na API e no banco de dados MongoDB no arquivo docker-compose.yml na raiz do projeto com as seguintes especificações:
 
@@ -36,6 +36,38 @@ services:
       - db
 ```
 
+Na raiz do projeto e após configurar as variáveis ambiente no arquivo docker-compose.yml, execute o comando a seguir:
+
+```bash
+$ docker-compose up
+```
+
+## Executando a aplicação localmente
+
+1- No diretório [weather_app/](weather_app/) execute o comando:
+
+```bash
+$ npm install
+```
+
+2- Crie um arquivo .env e configure as seguintes variáveis ambiente:
+API_KEY=
+DB_CONNECTION_STRING=
+
+3- Vá até a pasta [src/](src/) e procure o arquivo "app.module.ts"
+
+4- Descomente as seguintes linhas:
+// import \* as dotenv from 'dotenv';
+// const config = { path: '.env' };
+
+// dotenv.config(config);
+
+5- Em seguida, execute o seguinte comando:
+
+```bash
+$ npm start
+```
+
 ## API Endpoints
 
 `GET` /weather/:city/:country
@@ -60,15 +92,7 @@ services:
 }
 ```
 
-Para ver a documentação da API, acesse a rota raiz da API em {HOSTNAME}:{PORT}.
-
-## Executando a aplicação
-
-Na raiz do projeto e após configurar as variáveis ambiente no arquivo docker-compose, execute o comando a seguir:
-
-```bash
-$ docker-compose up
-```
+Para ver mais detalhes sobre a documentação da API no Swagger, acesse a rota raiz da aplicação em {HOSTNAME}:{PORT}.
 
 ## Test
 
@@ -80,7 +104,4 @@ $ npm run test
 
 # e2e tests
 $ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
