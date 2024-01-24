@@ -6,7 +6,7 @@ API para requisição de dados meteorológicos de cidades no mundo todo, utiliza
 
 ## Atalhos
 * [weather_app/](weather_app/) - pasta raiz da aplicação NestJS
-* [weather_app/src/tests/](weather_app/src/tests/) - pasta com os arquivos de testes unitários
+* [tests/](weather_app/src/tests/) - pasta com os arquivos de testes unitários
 
 ## Executando a aplicação com docker-compose
 
@@ -40,7 +40,7 @@ services:
       - db
 ```
 
-Na pasta raíz do projeto e após configurar as variáveis ambiente no arquivo docker-compose.yml, execute o comando a seguir:
+Na pasta raíz do projeto [Weather_Map/](/) e após configurar as variáveis ambiente no arquivo docker-compose.yml, execute o comando a seguir:
 
 ```bash
 $ docker-compose up
@@ -60,7 +60,7 @@ API_KEY=
 DB_CONNECTION_STRING=
 ```
 
-3- Vá até a pasta [src/](src/) e procure o arquivo "app.module.ts"
+3- Vá até o arquivo [app.module.ts](weather_app/src/app.module.ts) e procure o arquivo "app.module.ts"
 
 4- Descomente as seguintes linhas:
 ```
