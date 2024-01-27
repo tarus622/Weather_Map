@@ -4,6 +4,15 @@
 
 API para requisição de dados meteorológicos de cidades no mundo todo, utilizando o [OpenWeatherMap](https://openweathermap.org/). Também possibilita a criação de webhooks e a consulta do hisórico de requisições salvas em um banco de dados MongoDB.
 
+## Tecnologias
+- NodeJS
+- NestJS
+- Docker 
+- Jest 
+- MongoDB
+- Swagger
+- Mongoose
+
 ## Atalhos
 * [weather_app/](weather_app/) - pasta raiz da aplicação NestJS
 * [tests/](weather_app/src/tests/) - pasta com os arquivos de testes unitários
@@ -35,7 +44,7 @@ services:
       # URI do banco de dados MongoDB
       DB_CONNECTION_STRING: {mongodb://example}
       # Chave da OpenWeatherMap API
-      API_KEY: {example}
+      API_KEY: {open_api_key_example}
     depends_on:
       - db
 ```
@@ -54,26 +63,10 @@ $ docker-compose up
 $ npm install
 ```
 
-2- Crie um arquivo .env e configure as seguintes variáveis ambiente:
-```
-API_KEY=
-DB_CONNECTION_STRING=
-```
-
-3- Vá até o arquivo [app.module.ts](weather_app/src/app.module.ts)
-
-4- Descomente as seguintes linhas:
-```
-// import \* as dotenv from 'dotenv';
-// const config = { path: '.env' };
-
-// dotenv.config(config);
-```
-
-5- Em seguida, execute o seguinte comando:
+2- Execute o script "start" após configurar a string de conexão do MongoDB e a chave da Open Weather API como variáveis de ambiente
 
 ```bash
-$ npm start
+$ DB_CONNECTION_STRING={mongodb://example} API_KEY={open_api_key_example} npm start
 ```
 
 ## API Endpoints
@@ -110,6 +103,7 @@ Para executar testes unitários e teste E2E, vá até a pasta [weather_app/](wea
 # unit tests
 $ npm run test
 
+Observação: para executar testes e2e com sucesso, é necessário configurar a string de conexão do MongoDB
 # e2e tests
-$ npm run test:e2e
+$ DB_CONNECTION_STRING={mongodb://example} npm run test:e2e
 ```
