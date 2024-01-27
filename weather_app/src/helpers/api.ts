@@ -1,4 +1,8 @@
-import { NotFoundException, Logger } from '@nestjs/common';
+import {
+  NotFoundException,
+  UnauthorizedException,
+  Logger,
+} from '@nestjs/common';
 import { Webhook } from '../schemas/webhooks.schema';
 
 const logger = new Logger('ApiHelpers');
@@ -7,12 +11,21 @@ export async function fetchData(url: string) {
   try {
     const response = await fetch(url);
     if (!response.ok) {
-      logger.error(
-        `Weather API request failed: city not found. Status: ${response.status}`,
-      );
-      throw new NotFoundException(
-        `Weather API request failed: city not found. Status: ${response.status}`,
-      );
+      if (response.status === 404) {
+        logger.error(
+          `Weather API request failed: city not found. Status: ${response.status}`,
+        );
+        throw new NotFoundException(
+          `Weather API request failed: city not found. Status: ${response.status}`,
+        );
+      } else if (response.status === 401) {
+        logger.error(
+          `Weather API request failed: API key not valid. Status: ${response.status}`,
+        );
+        throw new UnauthorizedException(
+          `Weather API request failed: API key not valid. Status: ${response.status}`,
+        );
+      }
     }
     const data = await response.json();
     return data;
