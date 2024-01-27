@@ -5,17 +5,33 @@ describe('fetchData', () => {
     jest.restoreAllMocks();
   });
 
-  it('Must throw an error if response is not ok', async () => {
+  it('Must throw a 404 error if result is not found', async () => {
     // Arrange
     const url = 'testurl.com';
     jest.spyOn(global, 'fetch').mockResolvedValue({
       ok: false,
+      status: 404,
       json: async () => ({}),
     } as Response);
 
     // Act && Assert
     await expect(() => fetchData(url)).rejects.toThrow(
-      'Weather API request failed: city not found. Status: undefined',
+      'Weather API request failed: city not found. Status: 404',
+    );
+  });
+
+  it('Must throw a 401 error if response is unauthorized', async () => {
+    // Arrange
+    const url = 'testurl.com';
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      ok: false,
+      status: 401,
+      json: async () => ({}),
+    } as Response);
+
+    // Act && Assert
+    await expect(() => fetchData(url)).rejects.toThrow(
+      'Weather API request failed: API key not valid. Status: 401',
     );
   });
 
