@@ -5,7 +5,7 @@ services:
     container_name: db
     restart: always
     environment:
-      MONGO_URI:
+      MONGO_URI: 
 
   node-api:
     build:
@@ -16,7 +16,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      DB_CONNECTION_STRING:
-      API_KEY:
+      DB_CONNECTION_STRING: 
+      API_KEY: 
     depends_on:
       - db
