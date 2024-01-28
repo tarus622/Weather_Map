@@ -1,9 +1,9 @@
-import { Clouds } from './clouds.interface';
-import { Coord } from './coord.interface';
-import { Main } from './main.interface';
-import { Sys } from './sys.interface';
-import { Weather } from './weather.interface';
-import { Wind } from './wind.interface';
+import { Clouds } from './clouds';
+import { Coord } from './coord';
+import { Main } from './main';
+import { Sys } from './sys';
+import { Weather } from './weather';
+import { Wind } from './wind';
 
 export interface WeatherData {
   coord: Coord;

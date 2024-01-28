@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsString, Length, IsObject } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
-import { WeatherData } from '../interfaces/weather-data.interface';
+import { WeatherData } from '../interfaces/weather-data';
 
 export class CreateLocationDto {
   @ApiProperty({ required: true })

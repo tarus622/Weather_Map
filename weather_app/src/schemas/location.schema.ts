@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { HydratedDocument } from 'mongoose';
-import { WeatherData } from '../interfaces/weather-data.interface';
+import { WeatherData } from '../interfaces/weather-data';
 
 export type LocationDocument = HydratedDocument<Location>;
 
