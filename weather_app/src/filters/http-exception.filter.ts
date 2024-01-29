@@ -3,14 +3,14 @@ import {
   Catch,
   ArgumentsHost,
   HttpException,
-  Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
 import { ErrorResponse } from '../interfaces/error-response';
+import { HttpExceptionLoggerService } from '../../logging/logger/logger.service';
 
 @Catch(HttpException)
 export class HttpExceptionFilter implements ExceptionFilter {
-  private readonly logger = new Logger(HttpExceptionFilter.name);
+  private readonly loggerService = new HttpExceptionLoggerService();
 
   isObjectWithMessage(obj: any): obj is { message: string } {
     return typeof obj === 'object' && 'message' in obj;
@@ -37,8 +37,8 @@ export class HttpExceptionFilter implements ExceptionFilter {
       message: message,
     };
 
-    this.logger.error(
-      `HTTP Exception - Status: ${status}, Path: ${errorResponse.path}, Message: ${errorResponse.message}`,
+    this.loggerService.error(
+      `[${HttpExceptionFilter.name}] HTTP Exception - Status: ${status}, Path: ${errorResponse.path}, Message: ${errorResponse.message}`,
       exception.stack,
     );
 

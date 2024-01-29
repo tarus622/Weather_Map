@@ -1,11 +1,8 @@
-import {
-  NotFoundException,
-  UnauthorizedException,
-  Logger,
-} from '@nestjs/common';
+import { NotFoundException, UnauthorizedException } from '@nestjs/common';
 import { Webhook } from '../schemas/webhooks.schema';
+import { HelperApiLoggerService } from '../../logging/logger/logger.service';
 
-const logger = new Logger('ApiHelpers');
+const logger = new HelperApiLoggerService();
 
 export async function fetchData(url: string) {
   try {
@@ -51,7 +48,7 @@ export async function sendPostRequestsToWebhooks(
           body: JSON.stringify(webhook),
         });
 
-        logger.log(
+        logger.info(
           `POST request to webhook processed successfully: ${JSON.stringify(
             webhook,
           )}`,
@@ -59,7 +56,7 @@ export async function sendPostRequestsToWebhooks(
       }),
     );
 
-    logger.log('All POST requests to webhooks processed successfully');
+    logger.info('All POST requests to webhooks processed successfully');
   } catch (error) {
     logger.error('Error processing POST requests to webhooks:', error);
   }

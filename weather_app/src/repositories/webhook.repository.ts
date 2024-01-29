@@ -1,12 +1,13 @@
-import { Injectable, HttpException, HttpStatus, Logger } from '@nestjs/common';
+import { Injectable, HttpException, HttpStatus } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Webhook } from '../schemas/webhooks.schema';
 import { Model } from 'mongoose';
 import { CreateWebhookDto } from '../dtos/create-webhook.dto';
+import { WebhookRepositoryLoggerService } from '../../logging/logger/logger.service';
 
 @Injectable()
 export class WebhookRepository {
-  private readonly logger = new Logger(WebhookRepository.name);
+  private readonly logger = new WebhookRepositoryLoggerService();
 
   constructor(
     @InjectModel(Webhook.name) private webhookModel: Model<Webhook>,
@@ -21,7 +22,7 @@ export class WebhookRepository {
       });
 
       if (existingWebhook.length > 0) {
-        this.logger.log(
+        this.logger.info(
           `Webhook already exists for the same location and URL: ${JSON.stringify(
             existingWebhook,
           )}`,
@@ -31,7 +32,7 @@ export class WebhookRepository {
 
       const createdWebhook = await this.webhookModel.create(createWebhookDto);
 
-      this.logger.log(`Webhook created: ${JSON.stringify(createdWebhook)}`);
+      this.logger.info(`Webhook created: ${JSON.stringify(createdWebhook)}`);
 
       return createdWebhook;
     } catch (error) {
@@ -50,7 +51,7 @@ export class WebhookRepository {
         country,
       });
 
-      this.logger.log(
+      this.logger.info(
         `Retrieved webhooks for ${city}, ${country}: ${JSON.stringify(
           webhooks,
         )}`,

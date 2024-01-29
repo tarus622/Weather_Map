@@ -1,7 +1,7 @@
 import { APP_FILTER } from '@nestjs/core';
 import { HttpExceptionFilter } from './filters/http-exception.filter';
 import { MongooseModule } from '@nestjs/mongoose';
-import { Module, NestModule, MiddlewareConsumer } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { Location, LocationSchema } from './schemas/location.schema';
@@ -9,7 +9,7 @@ import { Webhook, WebhookSchema } from './schemas/webhooks.schema';
 import { LocationRepository } from './repositories/location.repository';
 import { WebhookRepository } from './repositories/webhook.repository';
 import { RequestHistoryHelper } from './helpers/request-history';
-import { LoggerMiddleware } from './middlewares/logger.middleware';
+import { LoggerModule } from '../logging/logger.module';
 
 @Module({
   imports: [
@@ -18,6 +18,7 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
       { name: Location.name, schema: LocationSchema },
       { name: Webhook.name, schema: WebhookSchema },
     ]),
+    LoggerModule,
   ],
   controllers: [AppController],
   providers: [
@@ -28,8 +29,4 @@ import { LoggerMiddleware } from './middlewares/logger.middleware';
     { provide: APP_FILTER, useClass: HttpExceptionFilter },
   ],
 })
-export class AppModule implements NestModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(LoggerMiddleware).forRoutes(AppController);
-  }
-}
+export class AppModule {}

@@ -1,11 +1,12 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Location } from '../schemas/location.schema';
 import { Model } from 'mongoose';
+import { RequestHistoryLoggerService } from '../../logging/logger/logger.service';
 
 @Injectable()
 export class RequestHistoryHelper {
-  private readonly logger = new Logger(RequestHistoryHelper.name);
+  private readonly logger = new RequestHistoryLoggerService();
 
   constructor(
     @InjectModel(Location.name) private locationModel: Model<Location>,
@@ -13,11 +14,11 @@ export class RequestHistoryHelper {
 
   async findRequestHistory() {
     try {
-      this.logger.log('Retrieving request history');
+      this.logger.info('Retrieving request history');
 
       const data = await this.locationModel.find().select('-_id -__v').exec();
 
-      this.logger.log(
+      this.logger.info(
         `Successfully retrieved request history: ${JSON.stringify(data)}`,
       );
 
