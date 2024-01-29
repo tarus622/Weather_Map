@@ -9,6 +9,8 @@ import { Webhook } from '../schemas/webhooks.schema';
 import { getModelToken } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { GetWeatherDto } from '../dtos/get-weather.dto';
+import { LoggerModule } from '../../logging/logger.module';
+import { AppControllerLoggerService } from '../../logging/logger/logger.service';
 
 describe('AppController', () => {
   let appController: AppController;
@@ -16,12 +18,14 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
+      imports: [LoggerModule],
       controllers: [AppController],
       providers: [
         AppService,
         LocationRepository,
         WebhookRepository,
         RequestHistoryHelper,
+        AppControllerLoggerService,
         {
           provide: getModelToken(Location.name),
           useValue: Model,
