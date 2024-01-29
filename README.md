@@ -12,10 +12,12 @@ API para requisição de dados meteorológicos de cidades no mundo todo, utiliza
 - MongoDB
 - Swagger
 - Mongoose
+- Winston
 
 ## Atalhos
 * [weather_app/](weather_app/) - pasta raiz da aplicação NestJS
 * [tests/](weather_app/src/tests/) - pasta com os arquivos de testes unitários
+* [logging/](weather_app/logging) - pasta com as configurações de logging
 
 ## Executando a aplicação com docker-compose
 
@@ -72,24 +74,28 @@ $ DB_CONNECTION_STRING={mongodb://example} API_KEY={open_api_key_example} npm st
 ## API Endpoints
 
 `GET` /weather/:city/:country
-
+**Descrição:**
 - Faz uma requisição para a API do OpenWeatherMap retornando as condições climáticas atuais da cidade pesquisada.
 - Adiciona a requisição em um documento do banco de dados MongoDB que guarda o histórico de requisições.
 - Caso haja webhooks para a localidade da requisição, envia uma requisição POST para a URL cadastrada.
+**Parâmetros de Consulta:**
+  - city: obrigatório
+  - country: obrigatório, deve ter o tamanho exato de 2 caracteres.
 
 `GET` /history
-
+**Descrição:**
 - Recupera o histórico de requisições realizadas que está armazenado no banco de dados MongoDB.
 
 `POST` /webhook
-
+**Descrição:**
 - Cadastra um novo webhook com o seguinte formato:
 
+**Parâmetros de Corpo (Body):**
 ```json
 {
-  "city": "London",
-  "country": "GB",
-  "webhookURL": "https://example.com/webhook-endpoint"
+  "city": "string", // Deve ser uma string não vazia
+  "country": "string", // Deve ser uma string não vazia com exatamente 2 caracteres
+  "webhookURL": "string" // Deve ser uma string não vazia
 }
 ```
 
