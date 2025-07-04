@@ -117,7 +117,7 @@ describe('AppController', () => {
       // Act
       const data = await appController.getWeatherHistory();
 
-    expect(data).toEqual(expectedResult);
+      expect(data).toEqual({expectedResult});
     });
 
     it('Must throw an error when appService.getWeatherHistory throws it', async () => {
