@@ -8,7 +8,8 @@ on:
       - main
 
   pull_request:
-    types: [opened, reopened]
+    branches: [main]
+    types: [opened, reopened, synchronize]
 
 jobs:
   server-test:
