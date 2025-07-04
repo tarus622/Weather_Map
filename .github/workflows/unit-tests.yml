@@ -1,4 +1,4 @@
-name: server-test
+name: Test Suite
 
 on:
   workflow_dispatch:
@@ -11,7 +11,7 @@ on:
     types: [opened, reopened]
 
 jobs:
-  test:
+  server-test:
     runs-on: ubuntu-latest
 
     steps:
