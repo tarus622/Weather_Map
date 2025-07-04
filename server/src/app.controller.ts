@@ -19,7 +19,7 @@ export class AppController {
       params.city.charAt(0).toUpperCase() + params.city.slice(1).toLowerCase();
     const result = await this.appService.getWeather(
       formattedCity,
-      params.country.toLowerCase(),
+      params.country.toLowerCase()
     );
 
     this.loggerService.info(
